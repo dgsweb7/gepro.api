@@ -6,12 +6,26 @@
 <mapper namespace="Company">
  
     <resultMap id="result" type="Company">
-        <result property="id" column="company_id"/>
+		<id property="id" column="company_id"/> 
         <result property="FullName" column="full_name"/>   
+        <result property="UrlEndpoint" column="url_endpoint"/>       
+        <collection property="Users" ofType="br.com.gepro.entity.UserEntity">
+	        <id property="id" column="user_id"/>
+   	        <result property="FirstName" column="first_name"/>       
+	        <result property="LastName" column="last_name"/>       
+	        <result property="Email" column="email"/>       
+        </collection> 
     </resultMap>
  
+    
     <select id="selectAll" resultMap="result">
-        SELECT * FROM company ORDER BY full_name;
+        SELECT 
+        	co.company_id, co.full_name, co.url_endpoint, us.user_id, 
+        	us.first_name, us.last_name, email 
+        FROM 
+        	company co
+        LEFT JOIN user us ON us.company_id = co.company_id 
+        ORDER BY co.full_name;
     </select>
  
     <select id="selectById" parameterType="string" resultMap="result">
@@ -19,14 +33,15 @@
     </select>
 
     <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO company (event_id, full_name)
+        INSERT INTO company (company_id, full_name, url_endpoint)
 		VALUES 
-        (#{id}, #{fullname} );
+        (#{id}, #{FullName} , #{UrlEndpoint} );
     </insert>
  
     <update id="update" parameterType="Company">
         UPDATE company
-        SET full_name = #{fullname}
+        SET full_name = #{FullName},
+        url_endpoint = #{UrlEndpoint}
         WHERE company_id = #{id} 
     </update>
  

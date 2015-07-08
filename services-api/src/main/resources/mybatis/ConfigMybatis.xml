@@ -7,6 +7,7 @@
 
     <typeAliases>
         <typeAlias alias="Company" type="br.com.gepro.entity.CompanyEntity"/>        
+        <typeAlias alias="User" type="br.com.gepro.entity.UserEntity"/>
     </typeAliases>
  
     <environments default="development">
@@ -23,6 +24,7 @@
     
     <mappers>
        <mapper resource="mybatis/mapper/CompanyMapper.xml"/>  
+       <mapper resource="mybatis/mapper/UserMapper.xml"/>
     </mappers>
     
 </configuration>
