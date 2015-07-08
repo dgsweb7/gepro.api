@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Company">
+ 
+    <resultMap id="result" type="Company">
+        <result property="id" column="company_id"/>
+        <result property="FullName" column="full_name"/>   
+    </resultMap>
+ 
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM company ORDER BY full_name;
+    </select>
+ 
+    <select id="selectById" parameterType="string" resultMap="result">
+        SELECT * FROM company WHERE company_id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO company (event_id, full_name)
+		VALUES 
+        (#{id}, #{fullname} );
+    </insert>
+ 
+    <update id="update" parameterType="Company">
+        UPDATE company
+        SET full_name = #{fullname}
+        WHERE company_id = #{id} 
+    </update>
+ 
+    <delete id="delete" parameterType="string">
+        DELETE from company WHERE company_id = #{id}
+    </delete>
+</mapper>
