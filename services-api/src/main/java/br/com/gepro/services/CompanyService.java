@@ -9,9 +9,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
+
 import org.apache.log4j.Logger;
+
 import com.google.gson.Gson;
+
 import br.com.gepro.business.CompanyBoImpl;
+import br.com.gepro.common.GenericCommon;
 import br.com.gepro.entity.CompanyEntity;
 
 
@@ -31,6 +35,12 @@ public class CompanyService {
 	@Path("/")
 	@Produces("application/json;charset=utf-8")
 	public Response getAll() {
+		
+        System.out.println(GenericCommon.getPropertyValue("database.driver"));
+        System.out.println(GenericCommon.getPropertyValue("database.username"));
+        System.out.println(GenericCommon.getPropertyValue("database.password"));
+		
+		
 		String json = gson.toJson(companyBo.selectAll());
 		return Response.status(200).entity(json).build();
 	}

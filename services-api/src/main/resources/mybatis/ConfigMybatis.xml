@@ -4,6 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
  
 <configuration>
+
     <typeAliases>
         <typeAlias alias="Company" type="br.com.gepro.entity.CompanyEntity"/>        
     </typeAliases>
@@ -11,16 +12,17 @@
     <environments default="development">
         <environment id="development">
           <transactionManager type="JDBC"/>
-            <!--  connecting to Local MySql -->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/gepro"/>
-                <property name="username" value="root"/>
-                <property name="password" value=""/>
+                <property name="driver" value="${database.driver}"/>
+                <property name="url" value="${database.url}"/>
+                <property name="username" value="${database.username}"/>
+                <property name="password" value="${database.password}"/>
             </dataSource>
        </environment>
     </environments>
+    
     <mappers>
-       <mapper url="file:///Users/dcunha1/documents/projects/gepro.api/services-api/services/src/main/java/br/com/gepro/mapper/CompanyMapper.xml"/>
+       <mapper resource="mybatis/mapper/CompanyMapper.xml"/>  
     </mappers>
+    
 </configuration>
