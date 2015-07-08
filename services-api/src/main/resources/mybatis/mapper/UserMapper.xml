@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="User">
+ 
+    <resultMap id="result" type="User">
+        <result property="id" column="user_id"/>
+        <result property="CompanyId" column="company_id"/>
+        <result property="FirstName" column="first_name"/>   
+        <result property="LastName" column="last_name"/>
+        <result property="Email" column="email"/>
+    </resultMap>
+ 
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM user ORDER BY first_name;
+    </select>
+ 
+    <select id="selectById" parameterType="string" resultMap="result">
+        SELECT * FROM user WHERE user_id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (user_id, company_id, first_name, last_name, email)
+		VALUES 
+        (#{id}, #{CompanyId}, #{FirstName}, #{LastName}, #{Email} );
+    </insert>
+ 
+    <update id="update" parameterType="User">
+        UPDATE user
+        SET first_name = #{FirstName},
+        last_name = #{LastName},
+        email = #{email}
+        WHERE user_id = #{id} 
+    </update>
+ 
+    <delete id="delete" parameterType="string">
+        DELETE from user WHERE user_id = #{id}
+    </delete>
+</mapper>
